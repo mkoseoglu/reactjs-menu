@@ -20,7 +20,8 @@ class App extends React.Component {
   componentWillMount() {
     this.ref = base.syncState(`${this.props.match.params.storeId}/fishes`, {
       context: this,
-      state: 'fishes'
+      state: 'fishes',
+      asArray: true
     });
 
   }
@@ -38,7 +39,7 @@ class App extends React.Component {
     ];
 
     this.setState({fishes })
-   
+
 
   }
 
@@ -51,7 +52,7 @@ class App extends React.Component {
         <div className="menu">
           <Header tagLine="Merhaba, ben tagLine." cool={true}/>
           <ul>
-            {Object.keys(this.state.fishes).map(i => <Fish key={this.state.fishes[i].id} details={this.state.fishes[i]}/>)}
+            {this.state.fishes.map(i => <Fish key={i.id} details={i}/>)}
           </ul>
           <Order storeId={this.props.match.params.storeId} fishLast={this.state.fishes}/>
           <Inventory addFish={this.addFish} loadSamples={this.loadSamples}/>
