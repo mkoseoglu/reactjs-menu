@@ -15,7 +15,7 @@ class App extends React.Component {
       fishes: [],
       order: {}
     }
-    console.log(this.state.fishes);
+    //console.log(this.state.fishes);
   }
   componentWillMount() {
     this.ref = base.syncState(`${this.props.match.params.storeId}/fishes`, {
@@ -31,20 +31,14 @@ class App extends React.Component {
   }
 
   addFish(fish) {
-     const fishes = [
-      ...this.state.fishes, {
-        id: Date.now(),
-        ...fish
-      }
-    ];
+   const fishes = [...this.state.fishes, {id:Date.now(), ...fish}];
 
-    this.setState({fishes })
-
-
+   this.setState({fishes })
   }
 
   loadSamples() {
-    this.setState({fishes: sampleFishes})
+   const load = [...this.state.fishes, ...sampleFishes];
+    this.setState({fishes: load})
   }
   render() {
     return (
@@ -52,7 +46,7 @@ class App extends React.Component {
         <div className="menu">
           <Header tagLine="Merhaba, ben tagLine." cool={true}/>
           <ul>
-            {this.state.fishes.map(i => <Fish key={i.id} details={i}/>)}
+            {this.state.fishes.map(i => <Fish key={i.key} details={i}/>)}
           </ul>
           <Order storeId={this.props.match.params.storeId} fishLast={this.state.fishes}/>
           <Inventory addFish={this.addFish} loadSamples={this.loadSamples}/>
